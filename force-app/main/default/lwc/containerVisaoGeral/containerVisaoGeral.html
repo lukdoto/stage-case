@@ -1,0 +1,33 @@
+<template>
+    <lightning-tabset variant="scoped">
+      
+      <!-- Aba 1 - Instruções -->
+      <lightning-tab label="Informações">
+        <lightning-card title="Como Funciona">
+          <div class="slds-p-horizontal_medium">
+            <p>
+              Esta aplicação foi desenvolvida para visualização e gerenciamento da alocação entre Desenvolvedores e Projetos. Utilize as abas para navegar pelas funcionalidades disponíveis:
+            </p>
+            <ul class="slds-list_dotted slds-m-around_medium">
+              <li><strong>Projetos por Desenvolvedor:</strong> Visualize os projetos em que um desenvolvedor está alocado.</li>
+              <li><strong>Desenvolvedores por Projeto:</strong> Consulte os desenvolvedores atribuídos a um projeto específico.</li>
+            </ul>
+            <p>
+              Clique no botão disponível nas tabelas para ser redirecionado à página do respectivo registro e consultar mais detalhes.
+            </p>
+          </div>
+        </lightning-card>
+      </lightning-tab>
+  
+      <!-- Aba 2 - Projetos por Dev -->
+      <lightning-tab label="Projetos por Desenvolvedor">
+        <c-projetos-por-desenvolvedor></c-projetos-por-desenvolvedor>
+      </lightning-tab>
+  
+      <!-- Aba 3 - Desenvolvedores por Projeto -->
+      <lightning-tab label="Desenvolvedores por Projeto">
+        <c-desenvolvedores-por-projeto></c-desenvolvedores-por-projeto>
+      </lightning-tab>
+  
+    </lightning-tabset>
+  </template>

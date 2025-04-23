@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Projetos e Oportunidades Disponíveis para Alocação">
+        <lightning-datatable
+            key-field="id"
+            data={itens}
+            columns={columns}
+            onrowaction={handleRowAction}
+            hide-checkbox-column>
+        </lightning-datatable>
+    </lightning-card>
+</template>

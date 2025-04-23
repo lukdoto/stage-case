@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Desenvolvedores do Projeto" icon-name="standard:user">
+        <lightning-input label="Id do Projeto" value={projectId} onchange={handleChange}></lightning-input>
+
+        <template if:true={developers}>
+            <lightning-datatable
+                key-field="Id"
+                data={developers}
+                columns={columns}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </lightning-card>
+</template>

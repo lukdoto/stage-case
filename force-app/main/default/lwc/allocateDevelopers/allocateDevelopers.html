@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Alocar Desenvolvedores Compatíveis">
+      <template if:true={technologies}>
+        <div class="slds-p-around_medium">
+          <p><strong>Tecnologias requeridas:</strong> {technologies}</p>
+        </div>
+      </template>
+  
+      <template if:true={developers.length}>
+        <lightning-datatable
+          key-field="Id"
+          data={developers}
+          columns={columns}
+          selected-rows={selectedRows}
+          onrowselection={handleSelection}>
+        </lightning-datatable>
+        <lightning-button
+          label="Alocar Desenvolvedores"
+          onclick={handleAllocate}
+          class="slds-m-top_medium">
+        </lightning-button>
+      </template>
+  
+      <template if:true={error}>
+        <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+      </template>
+    </lightning-card>
+  </template>

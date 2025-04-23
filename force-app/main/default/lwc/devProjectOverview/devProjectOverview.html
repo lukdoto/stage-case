@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="Projetos do Desenvolvedor" icon-name="standard:apps">
+        <template if:true={projetos}>
+            <lightning-datatable
+                key-field="recordId"
+                data={projetos}
+                columns={columnsProjeto}>
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </lightning-card>
+
+    <lightning-card title="Oportunidades do Desenvolvedor" icon-name="standard:opportunity">
+        <template if:true={oportunidades}>
+            <lightning-datatable
+                key-field="recordId"
+                data={oportunidades}
+                columns={columnsOportunidade}>
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </lightning-card>
+</template>

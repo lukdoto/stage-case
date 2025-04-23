@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Enviar_Email_ao_Dono_da_Oportunidade</name>
+        <label>Enviar Email ao Dono da Oportunidade</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Buscar_Responsavel.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>Assunto_Email_Oportunidade</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Corpo_Email_Oportunidade</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientId</name>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+    </actionCalls>
+    <apiVersion>63.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>Assunto_Email_Oportunidade</name>
+        <dataType>String</dataType>
+        <expression>&quot;🟢 Oportunidade \&quot;&quot; &amp; {!$Record.Name} &amp; &quot;\&quot; fechada com sucesso!&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>Corpo_Email_Oportunidade</name>
+        <dataType>String</dataType>
+        <expression>&quot;🎯 Oportunidade \&quot;&quot; &amp; {!$Record.Name} &amp; &quot;\&quot; foi fechada com sucesso!&quot; &amp;
+&quot;\n💰 Valor: R$ &quot; &amp; TEXT({!$Record.Amount}) &amp;
+&quot;\n📅 Fechamento: &quot; &amp; TEXT({!$Record.CloseDate}) &amp;
+IF(NOT(ISBLANK({!Buscar_Responsavel.Name})), &quot;\n👤 Responsável: &quot; &amp; {!Buscar_Responsavel.Name}, &quot;&quot;)</expression>
+    </formulas>
+    <interviewLabel>Envio de Email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Envio de Email</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Buscar_Responsavel</name>
+        <label>Buscar Responsavel</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Enviar_Email_ao_Dono_da_Oportunidade</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Buscar_Responsavel</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
